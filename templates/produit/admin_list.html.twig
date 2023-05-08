@@ -1,0 +1,39 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block hero %}
+    <h1>Produit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>Titre</th>
+                <th>Categorie</th>
+                <th>Prix</th>
+             </tr>
+        </thead>
+        <tbody>
+        
+        {% for produit in pagination %}
+            <tr>
+                <td>{{ produit.idproduit }}</td>
+                <td>{{ produit.image }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.titre }}</td>
+                <td>{{ produit.categorie }}</td>
+                <td>{{ produit.prix }}</td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  
+{% endblock %}

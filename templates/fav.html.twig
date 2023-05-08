@@ -1,0 +1,63 @@
+{% extends "baseFront.html.twig" %}
+{% block hero %}
+ <section class="product spad">
+        <div class="container">
+            <div class="row">
+                
+            </div> 
+            
+            {% block products %}
+             <div class="row product__filter">
+               {% for item in produits %} 
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                    <div class="product__item sale">
+                        <div class="product__item__pic set-bg" data-setbg="/uploads/{{item.image}}">
+                            <span class="label">Fav</span>
+                            
+                        </div>
+                        <div class="product__item__text">
+                            <h6>{{item.titre}}</h6>
+                            <form
+                             method="post" action="{{ path('app_Saved_delete', {'id': item.id}) }}" 
+                            onsubmit="return confirm('Are you sure you want to remove this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+    <button class="btn btn-danger">Delete</button>
+  
+</form>    
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <h5>${{item.prix}}</h5>
+                            <div class="product__color__select">
+                                <label for="pc-7">
+                                    <input type="radio" id="pc-7">
+                                </label>
+                                <label class="active black" for="pc-8">
+                                    <input type="radio" id="pc-8">
+                                </label>
+                                <label class="grey" for="pc-9">
+                                    <input type="radio" id="pc-9">
+                                </label>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+             
+                   {% else %}
+                <h1> no favorites yet </h1>
+         
+            
+                  {% endfor %}  
+            </div>
+            {% endblock %}
+          
+                
+        </div>
+    </section>
+    {% endblock %}

@@ -1,0 +1,138 @@
+{% extends "baseBack.html.twig" %}
+
+{% block title %}{{facture.idFacture }}{% endblock %}
+
+
+{% block body %}
+    <div class="row my-5"> 
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-nom">
+                       Facture n°{{ facture.idFacture}}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+              <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+
+
+
+
+
+                <thead>
+                    <tr class="ligne-table">
+                    
+                        <th style="white-space: nowrap;">Facture </th>
+                        <th style="white-space: nowrap;">Commission</th>
+                        <th style="white-space: nowrap;">Commande</th>
+                     
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               
+                 
+                    <tr class="ligne-table">
+                
+                        
+                       
+                        <td>facture n°{{facture.idFacture }}</td>
+                        <td >{{facture.commission}}%</td>
+                        <td >Commande n°{{ facture.commande.idCommande}}</td>
+                  
+                        
+                    
+                    </tr>
+
+
+
+ <tr>
+                    <th style="white-space: nowrap;">Date CONFIRMATION</th>
+                        <th style="white-space: nowrap;">Date LIVRAISON </th>
+                        
+                        <th>ROLE</th>
+                        
+                       
+                        <th></th>
+                    </tr>
+
+
+
+
+
+
+
+  <tr class="ligne-table">
+                <td  style="width: 200px;">{{ facture.commande.dateConfirmation|date('Y-m-d') }}</td>
+                        <td  style="width: 200px;">{{  facture.commande.dateLivraison|date('Y-m-d') }}</td>
+                        
+                        
+                        <td>{{ facture.commande.role}}</td>
+                      
+                        
+                    
+                    </tr>
+
+       <tr>
+                    
+                        <th style="white-space: nowrap;">Ancien Propriétaire </th>
+                        <th style="white-space: nowrap;">Nouveau Propriétaire</th>
+                        <th >Produit</th>
+                        
+                       
+                        <th></th>
+                    </tr>
+
+                    <tr class="ligne-table">
+
+                        
+                        <td>User n° {{ facture.commande.idUtilisateur}}</td>
+                      
+                          <td>User n° {{ facture.commande.idUtilisateura}}</td>
+                           <td style="white-space: nowrap;">Produit n° {{ facture.commande.idProduit}}</td>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+ <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+
+
+
+
+
+                <thead>
+                    <tr class="ligne-table">
+                    
+                        <th style="white-space: nowrap;">Date Facturation </th>
+                        <th style="white-space: nowrap;">Statut</th>
+                        
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               
+                 
+                    <tr class="ligne-table">
+
+                        
+                        <td  style="width: 200px;">{{ facture.dateFacturation|date('Y-m-d') }}</td>
+                      
+                      <td>{{facture.statut}}</td>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

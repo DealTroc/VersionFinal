@@ -1,0 +1,53 @@
+{% extends "baseBack.html.twig" %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+       <div class="row my-5"> 
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Produits
+                    </h3>
+                </div>
+                <div class="card-body">
+    <table class="table">
+    
+        <thead>
+        
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>Titre</th>
+                <th>Categorie</th>
+                <th>Prix</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.idproduit}}</td>
+                <td>{{ produit.image }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.titre }}</td>
+                <td>{{ produit.categorie }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>
+                    <a href="{{ path('app_admin_show', {'id': produit.idproduit}) }}">show</a>
+                    <a href="{{ path('app_admin_edit', {'id': produit.idproduit}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_new') }}">Create new</a>
+    </div> </div> </div>
+{% endblock %}

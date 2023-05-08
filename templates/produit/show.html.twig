@@ -1,0 +1,59 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block hero %}
+      <div class="row my-5"> 
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Produits
+                    </h3>
+                </div>
+                <div class="card-body">
+
+    <div class="d-flex">
+       <div class="align-items-center">
+        <img src="{{ qr_code_data_uri(' titre : '~ produit.titre  ~ ' description : '~ produit.description  ~' categorie : '~ produit.categorie ~' prix : '~ produit.prix  ) }}" />
+       </div>
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th>Image</th>
+                <td><img width="200" height="200" src="/uploads/{{ produit.image }}">
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ produit.description }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ produit.titre }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ produit.categorie }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ produit.prix }}</td>
+            </tr>
+        </tbody>
+        
+    </table>
+    </div>
+    <a class="primary-btn"   href="{{ path('app_produit_admin_index') }}">back to list</a>
+    &nbsp;
+
+    <a class="primary-btn" href="{{ path('app_produit_edit', {'id': produit.idproduit}) }}">edit</a>
+    &nbsp;
+     <a class="primary-btn" href="{{ path('commande_create',{id : produit.idproduit}) }}">commander</a>
+
+   <a class="btn btn-danger"> {{ include('produit/_delete_form.html.twig') }}  </a>
+</div>
+</div>
+</div>
+{% endblock %}

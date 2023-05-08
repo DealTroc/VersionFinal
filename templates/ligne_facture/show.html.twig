@@ -1,0 +1,89 @@
+{% extends "baseBack.html.twig" %}
+
+{% block title %}{{ lignefacture.id }}{% endblock %}
+
+
+{% block body %}
+    <div class="row my-5"> 
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-nom">
+                       Ligne facture n°{{ lignefacture.id }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                      <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+
+
+
+
+
+                <thead>
+                    <tr class="ligne-table">
+                    
+                   <th style="white-space: nowrap;">Livraison </th>
+                         <th style="white-space: nowrap;">Total  </th>
+                           <th style="white-space: nowrap;">Revenue </th>
+                     
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               
+                 
+                    <tr class="ligne-table">
+                
+                        
+                       
+                 <td>{{lignefacture.prixLivraison}} DT</td>
+                          <td>{{lignefacture.prixTotal}} DT</td>
+                           <td>{{lignefacture.revenu}} DT</td>
+                      
+                        
+                    
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+ <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+
+
+
+
+
+                <thead>
+                    <tr class="ligne-table">
+                    
+                           <th style="white-space: nowrap;">Prix intial </th>
+                        <th style="white-space: nowrap;">Prix de vente  </th>
+                        <th style="white-space: nowrap;">Facture  </th>
+                        
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               
+                 
+                    <tr class="ligne-table">
+
+                <td>{{lignefacture.prixInitial}} DT</td>
+                        <td>{{lignefacture.prixVente}} DT</td>
+                         <td> <a href="{{ path('facture_show',{id : lignefacture.facture.idFacture}) }}">details facture</td>
+                          
+                    </tr>
+                    
+                </tbody>
+            </table>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Liste des livreurs{% endblock %}
+
+{% block body %}
+    <h2>Liste des livreurs</h2>
+ <div class="col-md-12 mx-auto">
+{% for message in app.flashes("success") %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+        {% endfor %}
+        <div style="width: 100%; margin: 0 auto;">
+            <table style="margin-left: 10px;" class="table card-body spur-card-body-chart" id="my-table">
+                <thead>
+                    <tr>
+                        <th>IdLivreur</th>
+                        <th>Nom</th>
+                        <th>Num</th>             
+                    </tr>
+                </thead>
+        <tbody>
+        {% for livreur in livreurs %}
+            <tr>
+                <td>{{ livreur.idLivreur }}</td>
+                <td>{{ livreur.nom }}</td>
+                <td>{{ livreur.num }}</td>
+                <td>
+                
+                    <a href="{{ path('app_livreur_show', {'idLivreur': livreur.idLivreur}) }}"
+                    class="btn btn-sm btn-primary">
+                    <i class="fa fa-eye"></i>
+                    </a>&nbsp;
+                    
+                    <a href="{{ path('app_livreur_edit', {'idLivreur': livreur.idLivreur}) }}"
+                    class="btn btn-sm btn-warning">
+                    <i class="fa fa-edit"></i>
+                    </a>&nbsp;
+
+                    <a href="{{ path('app_livreur_new') }}"
+                    class="btn btn-sm btn-primary" style="background-color: pink;">
+                    <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+            </tr>
+       
+        {% endfor %}
+       
+ </div> 
+<script>
+ $(document).ready(function() {
+   // sélectionnez l'élément d'entrée de recherche
+   var searchInput = $('#search-input');
+
+   // sélectionnez le tableau que vous souhaitez filtrer
+   var table = $('#my-table');
+
+   // ajoutez un événement de saisie à l'élément d'entrée de recherche
+   searchInput.on('input', function() {
+      // récupérez la valeur de recherche saisie par l'utilisateur
+      var searchText = $(this).val().toLowerCase();
+
+      // sélectionnez toutes les lignes du tableau, sauf la première ligne (en-tête)
+      var rows = table.find('tr:not(:first)');
+
+      // bouclez sur chaque ligne pour voir si elle correspond à la valeur de recherche
+      rows.each(function() {
+         var row = $(this);
+
+         // récupérez le contenu textuel de chaque colonne dans la ligne
+         var cols = row.find('td').map(function() {
+            return $(this).text().toLowerCase();
+         }).get();
+
+         // vérifiez si l'une des colonnes contient la valeur de recherche
+         if (cols.indexOf(searchText) > -1) {
+            row.show(); // affichez la ligne si elle correspond à la recherche
+           
+         } else {
+            row.hide(); // masquez la ligne si elle ne correspond pas à la recherche
+         }
+      });
+   });
+});
+
+ 
+ 
+ 
+ 
+ </script>
+ </tbody>
+    </table>
+   
+ 
+    
+{% endblock %}

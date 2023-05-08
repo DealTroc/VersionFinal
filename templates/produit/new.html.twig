@@ -1,0 +1,23 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}New Produit{% endblock %}
+
+{% block hero %}
+
+<div class="container-sm">
+    <div class="row my-5"> 
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Ajouter un article
+                    </h3>
+                </div>
+                <div class="card-body">
+
+
+    {{ include('produit/_form.html.twig') }}
+
+    <a href="{{ path('app_produit_index') }}">back to list</a>
+</div> </div></div>
+{% endblock %}

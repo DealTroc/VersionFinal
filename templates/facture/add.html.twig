@@ -1,0 +1,141 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Hello FactureController!{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <style>
+    .ligne-table:hover {
+      font-weight: bold;
+    }
+   .ligne-table input[type="checkbox"] {
+    display: none;
+  }
+
+  .ligne-table input[type="checkbox"]:checked + td {
+    background-color: red;
+    color: white;
+  }
+  </style>
+{% endblock %}
+
+{% block body %}
+  <main class="dash-content">
+                <div class="container-fluid">
+                    <h1 class="dash-title">Nouvelle facture </h1>
+
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                    </div>
+                                    <div class="spur-card-title"> Ajouter une facture</div>
+                                </div>
+                                <div class="card">
+           
+                <div class="card-body">
+                    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+                    {{ form(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                    </div>
+                                    <div class="spur-card-title"> Details de la commande à facturer</div>
+                                </div>
+                                <div class="card-body ">
+                                 
+
+
+
+
+ <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+
+
+
+
+
+                <thead>
+                    <tr>
+                    <th style="white-space: nowrap;">Date CONFIRMATION</th>
+                        <th style="white-space: nowrap;">Date LIVRAISON </th>
+                        
+                        <th>ROLE</th>
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               
+                 
+                    <tr class="ligne-table">
+                <td  style="width: 200px;">{{ commande.dateConfirmation|date('Y-m-d') }}</td>
+                        <td  style="width: 200px;">{{ commande.dateLivraison|date('Y-m-d') }}</td>
+                        
+                        
+                        <td>{{commande.role}}</td>
+                      
+                        
+                    
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+ <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+
+
+
+
+
+                <thead>
+                    <tr>
+                    
+                        <th style="white-space: nowrap;">Ancien Propriétaire </th>
+                        <th style="white-space: nowrap;">Nouveau Propriétaire</th>
+                        <th >Produit</th>
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               
+                 
+                    <tr class="ligne-table">
+
+                        
+                        <td>User n° {{commande.idUtilisateur}}</td>
+                      
+                          <td>User n° {{commande.idUtilisateura}}</td>
+                           <td style="white-space: nowrap;">Produit n° {{commande.idProduit}}</td>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+
+
+
+                                </div>
+                            </div>
+                           
+                                
+                                      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            {% endblock %}
+   

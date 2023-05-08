@@ -1,0 +1,35 @@
+ 
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Saved list{% endblock %}
+
+{% block body %}
+ 
+    <h1>Saved list </h1> 
+    <div class="container d-flex">
+        {% for produit in produits %}
+         
+            <div class="card" style="width: 18rem;">
+  <img src="/uploads/{{produit.image}}" 
+  width="200"
+  height="300"
+  class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">titre : {{produit.titre}}</h5>
+    <p class="card-text">description :  {{produit.description}}</p>  
+    
+    {{ include('panier/_delete.html.twig') }}
+  </div>
+
+</div>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+     </div>
+
+    <a href="{{ path('app_panier_index') }}">view list</a>
+    
+{% endblock %}

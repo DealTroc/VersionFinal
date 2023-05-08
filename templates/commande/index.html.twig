@@ -1,0 +1,199 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Hello CommandeController!{% endblock %}
+
+{% block body %}
+<main class="dash-content">
+    <div class="container-fluid">
+        <div class="row dash-row">
+            <div class="col-xl-4">
+                <div style="background-color: #B87769;" class="stats stats-primary">
+                    <h3 class="stats-title">Achat</h3>
+                    <div class="stats-content">
+                        <div class="stats-icon">
+                           <i class="fas fa-cart-arrow-down"></i>
+                        </div>
+                        <div class="stats-data">
+                            <div class="stats-number"> {{ countAchat }}</div>
+                            <div class="stats-change">
+                                <span class="stats-percentage">+25%</span>
+                                <span class="stats-timeframe">from last month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div < class="col-xl-4">
+                <div style="background-color: #DAB3AB;" class="stats stats-success ">
+                    <h3 class="stats-title">Echange</h3>
+                    <div class="stats-content">
+                        <div class="stats-icon">
+                            <i class="fas fa-cart-arrow-down"></i>
+                        </div>
+                        <div class="stats-data">
+                            <div class="stats-number"> {{ countEchange }}</div>
+                            <div class="stats-change">
+                                <span class="stats-percentage">+17.5%</span>
+                                <span class="stats-timeframe">from last month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div style="background-color: #E7CAC4;" class="stats stats-danger">
+                    <h3 class="stats-title"> Commandes non confirmées </h3>
+                    <div class="stats-content">
+                        <div class="stats-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="stats-data">
+                            <div class="stats-number">{{countStatus}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card spur-card">
+                    <div class="card-header">
+                        <div class="spur-card-icon">
+                            <i class="fas fa-file"></i>
+
+                        </div>
+                        <div class="spur-card-title"> Commandes </div>
+
+
+{# 
+                        <div class="spur-card-menu">
+                            <div class="dropdown show">
+                                <a class="fas fa-plus" href="{{ path('commande_create') }}" role="button">
+                                </a>
+
+                            </div>
+                        </div> #}
+                    </div>
+                    <div class="col-md-12 mx-auto">
+                        {% for message in app.flashes("success") %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        <div style="width: 100%; margin: 0 auto;">
+                            <table style="margin-left: 10px;" class="table card-body spur-card-body-chart" id="my-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>ID Produit </th>
+                                        <th>Role</th>                                       
+                                        <th>Date&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>
+                                        <th>Date livraison &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>
+                                        <th>Date confirmation &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>            
+                                        <th>Status</th>
+                                        <th>ID Livreur</th>
+
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <h4> Total des commandes ({{pagination.getTotalItemCount}})</h4>              
+
+                                    {% for commande in pagination %}
+                                    <tr>
+                                        <td scope="row">{{commande.idCommande}}</td>
+                                        <td>{{commande.idProduit}}</td>
+                                        <td>{{commande.role}}</td>
+                                        <td style="width: 200px;">{{ commande.date|date('Y-m-d') }}</td>
+                                        <td style="width: 200px;">{{ commande.dateLivraison|date('Y-m-d') }}</td>
+                                        <td style="width: 200px;">{{ commande.dateConfirmation|date('Y-m-d') }}</td>
+                                        <td>{{commande.status}}</td>
+                                        <td>{{commande.idLivreur}}</td>
+
+                                        <td
+                                            style="display: flex; justify-content: space-between;  align-items: center;">
+                                            <a href="{{ path('commande_show',{id : commande.idCommande}) }}"
+                                                class="btn btn-sm btn-primary">
+                                                <i class="fa fa-eye"></i>
+                                            </a>&nbsp;
+
+
+                                            <a href="{{ path('commande_edit',{id : commande.idCommande}) }}"
+                                                class="btn btn-sm btn-warning">
+                                                <i class="fa fa-edit"></i>
+                                            </a>&nbsp;
+                                            <a href="{{ path('commande_delete',{id: commande.idCommande}) }}"
+                                                class="btn btn-sm btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+
+
+                                        </td>
+
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                              <div class="pagination">
+                                    {{ knp_pagination_render(pagination) }}
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+            <div class="col-xl-12">
+
+
+                <div class="card spur-card">
+                  
+                  
+                
+               
+<script>
+ $(document).ready(function() {
+   // sélectionnez l'élément d'entrée de recherche
+   var searchInput = $('#search-input');
+
+   // sélectionnez le tableau que vous souhaitez filtrer
+   var table = $('#my-table');
+
+   // ajoutez un événement de saisie à l'élément d'entrée de recherche
+   searchInput.on('input', function() {
+      // récupérez la valeur de recherche saisie par l'utilisateur
+      var searchText = $(this).val().toLowerCase();
+
+      // sélectionnez toutes les lignes du tableau, sauf la première ligne (en-tête)
+      var rows = table.find('tr:not(:first)');
+
+      // bouclez sur chaque ligne pour voir si elle correspond à la valeur de recherche
+      rows.each(function() {
+         var row = $(this);
+
+         // récupérez le contenu textuel de chaque colonne dans la ligne
+         var cols = row.find('td').map(function() {
+            return $(this).text().toLowerCase();
+         }).get();
+
+         // vérifiez si l'une des colonnes contient la valeur de recherche
+         if (cols.indexOf(searchText) > -1) {
+            row.show(); // affichez la ligne si elle correspond à la recherche
+           
+         } else {
+            row.hide(); // masquez la ligne si elle ne correspond pas à la recherche
+         }
+      });
+   });
+});
+ 
+ </script>
+
+               
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

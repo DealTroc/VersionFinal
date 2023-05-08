@@ -1,0 +1,25 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Edit Produit{% endblock %}
+
+{% block hero %}
+
+  <div class="row my-5"> 
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Modifier un article
+                    </h3>
+                </div>
+                <div class="card-body">
+    {{ include('produit/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_produit_admin_index') }}">back to list</a>
+
+    {{ include('produit/_delete_form.html.twig') }}
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'baseFront.html.twig' %}
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block hero  %}
+
+
+      <div class="col-xl-12">
+
+
+ <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                    </div>
+                                    <div class="spur-card-title"> Mes factures de vente </div>
+                                    <div class="spur-card-menu">
+                                       
+                                    </div>
+                                </div>
+                          <div style="width: 100%; margin: 0 auto;">
+
+            <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+              <thead>
+                    <tr>
+                        
+                        <th style="white-space: nowrap;">Date LIVRAISON </th>
+                       
+                        <th>ROLE</th>
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                     <tbody>
+                      
+                    {% for f in factures %}
+                     {% if f.commande.status == 1  %}
+                    <tr class="ligne-table">
+                    
+                        <td  style="width: 200px;">{{ f.commande.dateLivraison|date('Y-m-d') }}</td>
+                       
+                        
+                        <td>{{f.commande.role}}</td>
+                      
+                        
+                        <td style="display: flex; justify-content: space-between;  align-items: center;" id="btn-facture">
+                             <a href="{{ path('facture_showU',{id : f.commande.idCommande}) }}" class="btn btn-sm btn-primary" id="btn-facture">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                             
+                          
+                        </td>
+                    
+                    </tr>
+                     {% endif %}
+                    {% endfor %}
+               
+                </tbody>
+            </table>
+        </div>
+                            </div>
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                         
+                        </div>
+                         <div class="col-xl-12">
+
+
+ <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                    </div>
+                                    <div class="spur-card-title"> Mes factures d'achat </div>
+                                    <div class="spur-card-menu">
+                                       
+                                    </div>
+                                </div>
+                          <div style="width: 100%; margin: 0 auto;">
+
+            <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+              <thead>
+                    <tr>
+                        
+                        <th style="white-space: nowrap;">Date LIVRAISON </th>
+                       
+                        <th>ROLE</th>
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                     <tbody>
+                      
+                    {% for fa in facturesA %}
+                     {% if fa.commande.status == 1  %}
+                    <tr class="ligne-table">
+                    
+                        <td  style="width: 200px;">{{ fa.commande.dateLivraison|date('Y-m-d') }}</td>
+                       
+                        
+                        <td>{{fa.commande.role}}</td>
+                      
+                        
+                        <td style="display: flex; justify-content: space-between;  align-items: center;" id="btn-facture">
+                             <a href="{{ path('facture_showU',{id : fa.commande.idCommande}) }}" class="btn btn-sm btn-primary" id="btn-facture">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                             
+                          
+                        </td>
+                    
+                    </tr>
+                     {% endif %}
+                    {% endfor %}
+                   
+               
+                </tbody>
+            </table>
+        </div>
+                            </div>
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                         
+                        </div>
+
+
+
+
+
+{% endblock %}

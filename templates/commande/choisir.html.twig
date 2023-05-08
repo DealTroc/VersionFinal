@@ -1,0 +1,74 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Hello CommandeController!{% endblock %}
+
+{% block hero %}
+
+<div class="row">
+            <div class="col-xl-12">
+
+
+                <div class="card spur-card">
+                    <div class="card-header">
+                        <div class="spur-card-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="spur-card-title"> liste des produits </div>
+                        <div class="spur-card-menu">
+                            <div class="dropdown show">
+                                <a class="spur-card-menu-link" href="#" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                </a>
+                        {# <div class="spur-card-title"> liste des produits </div>
+                        <div class="spur-card-menu">
+                            <div class="dropdown show">
+                                <a class="spur-card-menu-link" href="#" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                </a> #}
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                                 </div>
+                        </div>
+                    </div> 
+                            </div>
+                        </div>
+                    </div>
+
+<table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+              <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>titre</th>
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                     <tbody>
+                      
+                    {% for p in produits %}
+                    
+                    <tr class="ligne-table">
+                        <td scope="row">{{p.idproduit}}</td>
+                        <td>{{p.titre}}</td>
+                      
+                        
+                        <td style="display: flex; justify-content: space-between;  align-items: center;" id="btn-commande">
+                           <a href="{{ path('commande_create',{id : p.idproduit}) }}" class="btn btn-sm btn-primary" >
+                                <i class="fa fa-plus"></i>
+                            </a>&nbsp;
+                             
+                          
+                        </td>
+                    
+                    </tr>
+                    
+                    {% endfor %}
+               
+                </tbody>
+            </table>
+                
+                {% endblock %}

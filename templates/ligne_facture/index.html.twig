@@ -1,0 +1,206 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Hello LigneFactureController!{% endblock %}
+
+{% block body %}
+    
+ <main class="dash-content">
+                <div class="container-fluid">
+                    <div class="row dash-row">
+                        <div class="col-xl-4">
+                            <div  style="background-color: #B87769;"class="stats stats-primary">
+                                <h3 class="stats-title"> Sign ups </h3>
+                                <div class="stats-content">
+                                    <div class="stats-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="stats-data">
+                                        <div class="stats-number">114</div>
+                                        <div class="stats-change">
+                                            <span class="stats-percentage">+25%</span>
+                                            <span class="stats-timeframe">from last month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div < class="col-xl-4">
+                            <div style="background-color: #DAB3AB;" class="stats stats-success ">
+                                <h3 class="stats-title"> Revenue </h3>
+                                <div class="stats-content">
+                                    <div class="stats-icon">
+                                        <i class="fas fa-cart-arrow-down"></i>
+                                    </div>
+                                    <div class="stats-data">
+                                        <div class="stats-number">$25,541</div>
+                                        <div class="stats-change">
+                                            <span class="stats-percentage">+17.5%</span>
+                                            <span class="stats-timeframe">from last month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div style="background-color: #E7CAC4;" class="stats stats-danger">
+                                <h3 class="stats-title"> Open tickets </h3>
+                                <div class="stats-content">
+                                    <div class="stats-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="stats-data">
+                                        <div class="stats-number">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-7">
+                               <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                         
+                                    </div>
+                                    <div class="spur-card-title"> Lignes des factures </div>
+
+
+                                      
+                                 
+                                </div>
+                                <div class="col-md-12 mx-auto">
+        {% for message in app.flashes("success") %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div style="width: 100%; margin: 0 auto;">
+            <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" id="my-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                         <th style="white-space: nowrap;">Prix intial </th>
+                        <th style="white-space: nowrap;">Prix de vente  </th>
+                        <th style="white-space: nowrap;">Livraison </th>
+                         <th style="white-space: nowrap;">Total  </th>
+                           <th style="white-space: nowrap;">Revenue </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for l in lignesfactures %}
+                    <tr>
+                        <td scope="row">{{l.id}}</td>
+                        <td>{{l.prixInitial}} DT</td>
+                        <td>{{l.prixVente}} DT</td>
+                         <td>{{l.prixLivraison}} DT</td>
+                          <td>{{l.prixTotal}} DT</td>
+                           <td>{{l.revenu}} DT</td>
+                        
+                        
+                        <td style="display: flex; justify-content: space-between;  align-items: center;">
+                              <a href="{{ path('lignefacture_show',{id : l.id}) }}" class="btn btn-sm btn-primary" id="btn-facture">
+                                <i class="fa fa-eye"></i>
+                            </a>&nbsp;
+                          
+                            
+                                    <a href="{{ path('lignefacture_edit',{id : l.id}) }}" class="btn btn-sm btn-warning">
+                                        <i class="fa fa-edit"></i>
+                                    </a>&nbsp;
+                                     <a href="{{ path('lignefacture_delete',{id: l.id}) }}" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                             
+                          
+                        </td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5">
+
+
+ <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                    </div>
+                                    <div class="spur-card-title"> Factures non calculées </div>
+                                    <div class="spur-card-menu">
+                                       
+                                    </div>
+                                </div>
+                          <div style="width: 100%; margin: 0 auto;">
+                        {% set factures_lignes = [] %}
+{% for lignefacture in lignesfactures %}
+    {% set facture = lignefacture.facture %}
+    {% if facture not in factures_lignes %}
+        {% set factures_lignes = factures_lignes|merge([facture]) %}
+    {% endif %}
+{% endfor %}
+            <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+                  <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Commission</th>
+                        <th  style="white-space: nowrap;">Date</th>
+                        <th  style="white-space: nowrap;">Statut</th>
+                        
+                        <th></th>
+                    </tr>
+                </thead>
+                     <tbody>
+                      
+                    {% for f in factures %}
+                     {% if f.statut =='Payé' and f not in factures_lignes %}
+                      <tr>
+                        <td scope="row">{{f.idFacture}}</td>
+                        <td>{{f.commission}}%</td>
+                        <td  style="width: 200px; white-space: nowrap;">{{ f.dateFacturation|date('Y-m-d') }}</td>
+                        <td>{{f.statut}}</td>
+                        
+                        
+                          <td style="display: flex; justify-content: space-between;  align-items: center;" id="btn-facture">
+                           <a href="{{ path('lignefacture_create',{id : f.idFacture}) }}" class="btn btn-sm btn-primary" >
+                                <i class="fa fa-plus"></i>
+                            </a>
+                             
+                          
+                        </td>
+                    
+                    </tr>
+                     {% endif %}
+                    {% endfor %}
+               
+                </tbody>
+            </table>
+        </div>
+                            </div>
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                         
+                        </div>
+                    </div>
+                </div>
+            </main>
+{% endblock %}
+

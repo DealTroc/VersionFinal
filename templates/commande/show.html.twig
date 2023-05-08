@@ -1,0 +1,58 @@
+{% extends "baseBack.html.twig" %}
+
+{% block title %}{{ commande.idCommande }}{% endblock %}
+
+
+{% block body %}
+    <div class="row my-10"> 
+        <div class="col-md-12 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-nom">
+                        <table style="margin-left: 10px;" class="table card-body spur-card-body-chart">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>ID Utilisateur</th>
+                                        <th>ID Produit </th>
+                                        {# <th>ID Utilisateur Acheteur</th> #}
+                                        <th>Date&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>
+                                        <th>Date livraison &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>
+                                        <th>Date confirmation &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>ID Livreur</th>
+
+
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                
+                                    <tr>
+                                        <td scope="row">{{commande.idCommande}}</td>
+                                        <td>{{commande.idUtilisateur}}</td>
+                                        <td>{{commande.idProduit}}</td>
+                                        {# <td>{{commande.idUtilisateura}}</td> #}
+                                        <td style="width: 200px;">{{ commande.date|date('Y-m-d') }}</td>
+                                        <td style="width: 200px;">{{ commande.dateLivraison|date('Y-m-d') }}</td>
+                                        <td style="width: 200px;">{{ commande.dateConfirmation|date('Y-m-d') }}</td>
+                                        <td>{{commande.role}}</td>
+                                        <td>{{commande.status}}</td>
+                                        <td>{{commande.idLivreur}}</td>
+
+                                        <td
+                                            style="display: flex; justify-content: space-between;  align-items: center;">
+                                     </td>
+
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

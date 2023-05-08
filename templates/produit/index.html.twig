@@ -1,0 +1,74 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block hero %}
+
+ 
+    <br>
+ 
+    <a href="{{ path('app_produit_new') }}" class="btn btn-sm btn-outline-primary">Ajouter un nouvel article  <i class="fa fa-plus"></i></a> 
+<br><br>
+
+
+ <div class="col-md-12 mx-auto">
+   
+   {% for message in app.flashes("success") %}
+            <div class="alert alert-success">
+                {{ message }}
+         </div>
+        {% endfor %}
+      
+<div class="row product__filter">
+
+    {% for item in produits %}
+
+        <div style="margin: auto;" class="col-lg-2 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+            <div class="product__item sale">
+                <div class="product__item__pic set-bg" data-setbg="/uploads/{{item.image}}">
+                    <span class="label">Sale</span>
+                    <ul class="product__hover">
+                        <li><a href="{{ path('app_Saved_new', {'id': item.idproduit}) }}"><img src="{{asset('img/icon/heart.png')}}" alt=""></a></li>
+                        <li><a href="#"><img src="{{asset('img/icon/compare.png')}}" alt=""> <span>Compare</span></a></li>
+                        <li><a href="#"><img src="{{asset('img/icon/search.png')}}" alt=""></a></li>
+                    </ul>
+                </div>
+                <div class="product__item__text">
+                    <h6>{{item.titre}}</h6>
+                    <a href="#" class="add-cart">+ Add To Cart</a>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <h5>${{item.prix}}</h5>
+                    <div class="product__color__select">
+                        <label for="pc-7">
+                            <input type="radio" id="pc-7">
+                        </label>
+                        <label class="active black" for="pc-8">
+                            <input type="radio" id="pc-8">
+                        </label>
+                        <label class="grey" for="pc-9">
+                            <input type="radio" id="pc-9">
+                        </label>
+                    </div>
+                </div>
+            </div>
+<div style="display: flex; justify-content: space-between;  align-items: center;">
+  <a class="primary-btn" href="{{ path('app_produit_show', {'id': item.idproduit}) }}">show</a>
+            &nbsp;
+            <a  class="primary-btn" href="{{ path('app_produit_edit', {'id': item.idproduit}) }}">edit</a> <br><br><br><br> </div>
+          
+        </div>
+
+        {% endfor %}
+
+    </div> 
+<div class="pagination d-flex justify-content-center">
+    {{ knp_pagination_render(pagination) }}
+        </div>
+</div>
+{% endblock %}

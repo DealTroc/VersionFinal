@@ -1,0 +1,60 @@
+{% extends 'baseBack.html.twig' %}
+{% block body %}
+<div class="row">
+                        <div class="col-xl-12">
+                               <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                         
+                                    </div>
+  <div class="spur-card-title"> Produits </div>  
+                                </div>
+                                <div class="col-md-12 mx-auto">
+        {% for message in app.flashes("success") %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Titre</th>
+        <th>Categorie</th>
+        <th>Prix</th>
+        <th>actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for p in produits %}
+        <tr>
+            <td>{{ p.idproduit}}</td>
+            <td>{{ p.image }}</td>
+            <td>{{ p.description }}</td>
+            <td>{{ p.titre }}</td>
+            <td>{{ p.categorie }}</td>
+            <td>{{ p.prix }}</td>
+            <td>
+                <button type="button" class="btn btn-outline-info"><a href="{{ path('app_admin_show', {'id': p.idproduit}) }}">show</a></button>
+
+
+            
+
+
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="7">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+<div class="d-grid gap-2 d-md-block">
+ {% endblock %}

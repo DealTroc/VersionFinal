@@ -1,0 +1,215 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Hello FactureController!{% endblock %}
+
+{% block body %}
+    
+ <main class="dash-content">
+                <div class="container-fluid">
+                    <div class="row dash-row">
+                        <div class="col-xl-4">
+                            <div  style="background-color: #B87769;"class="stats stats-primary">
+                                <h3 class="stats-title"> Inscription </h3>
+                                <div class="stats-content">
+                                    <div class="stats-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="stats-data">
+                                        <div class="stats-number">5</div>
+                                        <div class="stats-change">
+                                            <span class="stats-percentage">+25%</span>
+                                            <span class="stats-timeframe">from last month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div < class="col-xl-4">
+                            <div style="background-color: #DAB3AB;" class="stats stats-success ">
+                                <h3 class="stats-title"> Revenue </h3>
+                                <div class="stats-content">
+                                    <div class="stats-icon">
+                                        <i class="fas fa-cart-arrow-down"></i>
+                                    </div>
+                                    <div class="stats-data">
+                                        <div class="stats-number">{{nbrv}}DT</div>
+                                        <div class="stats-change">
+                                            <span class="stats-percentage">+17.5%</span>
+                                            <span class="stats-timeframe">De date facturation</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div style="background-color: #E7CAC4;" class="stats stats-danger">
+                                <h3 class="stats-title"> Factures </h3>
+                                <div class="stats-content">
+                                    <div class="stats-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="stats-data">
+                                        <div class="stats-number">{{nbf}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                               <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                         
+                                    </div>
+                                    <div class="spur-card-title"> Factures </div>
+
+
+                                      
+                                 
+                                </div>
+                                <div class="col-md-12 mx-auto">
+        {% for message in app.flashes("success") %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+
+        <div style="width: 100%; margin: 0 auto;">
+            <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart"  id="my-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Commission</th>
+                        <th  style="white-space: nowrap;">Date</th>
+                        <th  style="white-space: nowrap;">Statut&ensp;&ensp;&ensp;&ensp;</th>
+                        
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               
+                    {% for facture in pagination %}
+                    <tr>
+                        <td scope="row">{{facture.idFacture}}</td>
+                        <td>{{facture.commission}}%</td>
+                        <td  style="width: 200px;">{{ facture.dateFacturation|date('Y-m-d') }}</td>
+                        <td>{{facture.statut}}</td>
+                        
+                        
+                        <td style="display: flex; justify-content: space-between;  align-items: center;">
+                              <a href="{{ path('facture_show',{id : facture.idFacture}) }}" class="btn btn-sm btn-primary" id="btn-facture">
+                                <i class="fa fa-eye"></i>
+                            </a>&nbsp;
+                          
+                            
+                                    <a href="{{ path('facture_edit',{id : facture.idFacture}) }}" class="btn btn-sm btn-warning">
+                                        <i class="fa fa-edit"></i>
+                                    </a>&nbsp;
+                                     <a href="{{ path('facture_delete',{id: facture.idFacture}) }}" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                             
+                          
+                        </td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+             <div class="pagination">
+                                    {{ knp_pagination_render(pagination) }}
+                                </div>
+        </div>
+    </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+
+
+ <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                    </div>
+                                    <div class="spur-card-title"> Commandes non facturées </div>
+                                    <div class="spur-card-menu">
+                                       
+                                    </div>
+                                </div>
+                          <div style="width: 100%; margin: 0 auto;">
+                        {% set commandes_factures = [] %}
+{% for facture in factures %}
+    {% set commande = facture.commande %}
+    {% if commande not in commandes_factures %}
+        {% set commandes_factures = commandes_factures|merge([commande]) %}
+    {% endif %}
+{% endfor %}
+            <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+              <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th style="white-space: nowrap;">Date LIVRAISON </th>
+                        <th style="white-space: nowrap;">Date CONFIRMATION</th>
+                        <th>ROLE</th>
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                     <tbody>
+                      
+                    {% for c in pagination2 %}
+                     {% if c.status == 1 and c not in commandes_factures %}
+                    <tr class="ligne-table">
+                        <td scope="row">{{c.idCommande}}</td>
+                        <td  style="width: 200px;">{{ c.dateLivraison|date('Y-m-d') }}</td>
+                        <td  style="width: 200px;">{{ c.dateConfirmation|date('Y-m-d') }}</td>
+                        
+                        <td>{{c.role}}</td>
+                      
+                        
+                        <td style="display: flex; justify-content: space-between;  align-items: center;" id="btn-facture">
+                           <a href="{{ path('facture_create',{id : c.idCommande}) }}" class="btn btn-sm btn-primary" >
+                                <i class="fa fa-plus"></i>
+                            </a>&nbsp;
+                             
+                          
+                        </td>
+                    
+                    </tr>
+                     {% endif %}
+                    {% endfor %}
+               
+                </tbody>
+            </table>
+                <div class="pagination">
+                                    {{ knp_pagination_render(pagination2) }}
+                                </div>
+        </div>
+                            </div>
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                         
+                        </div>
+                    </div>
+                </div>
+            </main>
+{% endblock %}
+

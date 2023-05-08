@@ -1,0 +1,426 @@
+{% extends "baseFront.html.twig" %}
+
+{% block title %}
+{% if ligne is defined %}
+	{{ligne.facture.idFacture }}
+	{% else %}
+	    <p>Ligne non ajoutée de cette facture</p>
+{% endif %}
+{% endblock %}
+
+
+{% block hero %}
+{% if ligne is defined  and facture is defined  %}
+	<div class="row my-5">
+		<div class="col-md-6 mx-auto">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-nom">
+						Details de l'opération
+					</h3>
+				</div>
+				<div class="card-body">
+					<div class="card-text">
+						<table style="margin-left: 10px;" class="table card-body spur-card-body-chart">
+
+
+							<thead>
+								<tr class="ligne-table">
+
+									<th style="white-space: nowrap;">Facture
+									</th>
+									<th style="white-space: nowrap;">Commission</th>
+									<th style="white-space: nowrap;">Commande</th>
+
+
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+
+
+								<tr class="ligne-table">
+
+
+									<td>facture n°{{ligne.facture.idFacture }}</td>
+									<td>{{ligne.facture.commission}}%</td>
+									<td>Commande n°{{ ligne.facture.commande.idCommande}}</td>
+
+
+								</tr>
+
+
+								<tr>
+									<th style="white-space: nowrap;">Date CONFIRMATION</th>
+									<th style="white-space: nowrap;">Date LIVRAISON
+									</th>
+
+									<th>ROLE</th>
+
+
+									<th></th>
+								</tr>
+
+
+								<tr class="ligne-table">
+									<td style="width: 200px;">{{ ligne.facture.commande.dateConfirmation|date('Y-m-d') }}</td>
+									<td style="width: 200px;">{{  ligne.facture.commande.dateLivraison|date('Y-m-d') }}</td>
+
+
+									<td>{{ ligne.facture.commande.role}}</td>
+
+
+								</tr>
+
+								<tr>
+
+									<th style="white-space: nowrap;">Ancien Propriétaire
+									</th>
+									<th style="white-space: nowrap;">Nouveau Propriétaire</th>
+									<th>Produit</th>
+
+
+									<th></th>
+								</tr>
+
+								<tr class="ligne-table">
+
+
+									<td>User n°
+										{{ ligne.facture.commande.idUtilisateur}}</td>
+
+									<td>User n°
+										{{ ligne.facture.commande.idUtilisateura}}</td>
+									<td style="white-space: nowrap;">Produit n°
+										{{ ligne.facture.commande.idProduit}}</td>
+
+								</tr>
+
+							</tbody>
+						</table>
+
+						<table style="margin-left: 10px;" class="table card-body spur-card-body-chart">
+
+
+							<thead>
+								<tr class="ligne-table">
+
+									<th style="white-space: nowrap;">Date Facturation
+									</th>
+									<th style="white-space: nowrap;">Statut</th>
+
+
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+
+
+								<tr class="ligne-table">
+
+
+									<td style="width: 200px;">{{ ligne.facture.dateFacturation|date('Y-m-d') }}</td>
+
+	{% if ligne.facture.statut == 'Payé' %}
+    <td class="status green">{{ligne.facture.statut}}</td>
+{% else %}
+    <td class="status red">{{ligne.facture.statut}}</td>
+{% endif %}
+
+<style>
+    .status {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .green {
+        background-color: green;
+    }
+
+    .red {
+        background-color: red;
+    }
+</style>
+
+
+
+
+
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-6 mx-auto">
+			<div class="card">
+				<div class="card-header">
+  <h3 class="card-nom" style="float: left;">
+    Facture 
+  </h3>
+  {% if ligne.facture.statut == 'Payé' %}
+  <a href="#" rel="noopener" target="_blank" class="btn btn-default btn-print" style="float: right;">
+    <i class="fas fa-print"></i>
+    Imprimer
+  </a>
+  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;" onclick="downloadPDF()">
+											<i class="fas fa-download"></i>
+											Télécharger PDF
+										</button>
+										{% endif %}
+  <div style="clear: both;"></div>
+</div>
+{% if ligne.facture.statut == 'Payé' %}
+				<div class="card-body" id="myDiv" class="myDiv">
+					<div class="card-text">
+						<div
+							class="wrapper">
+
+
+							<!-- Main content -->
+							<div
+								class="invoice p-3 mb-3">
+								<!-- title row -->
+								<div class="row">
+									<div class="col-12">
+										<h4>
+								
+
+											<i class="fa fa-globe"></i>
+											Dealtroc
+											<small class="float-right">Date: {{ ligne.facture.dateFacturation|date('Y-m-d') }}</small>
+										</h4>
+									</div>
+									<!-- /.col -->
+								</div>
+								<!-- info row -->
+								<div class="row invoice-info">
+									<div class="col-sm-4 invoice-col">
+										De
+										<address>
+										Client n°	<strong>{{ ligne.facture.commande.idUtilisateur}}</strong><br>
+											Adresse : Tunisie<br>
+											Tunis, CA 94107<br>
+											Téléphone: (+216) 52598017<br>
+											Email: 
+										</address>
+									</div>
+									<!-- /.col -->
+									<div class="col-sm-4 invoice-col">
+										A
+										<address>
+											Client n°	<strong>{{ ligne.facture.commande.idUtilisateura}}</strong><br>
+											Adresse : Tunisie<br>
+											Tunis, CA 94107<br>
+											Téléphone: (+216) 52598017<br>
+											Email: 
+										</address>
+									</div>
+									<!-- /.col -->
+									<div class="col-sm-4 invoice-col">
+										<b>Facture n° #{{ ligne.facture.idFacture}}</b><br>
+										<br>
+										<b>Commande ID:</b>
+										{{ ligne.facture.commande.idCommande}}<br>
+										<b>Date paiement:</b>
+										{{  ligne.facture.commande.dateLivraison|date('Y-m-d') }}<br>
+										<b>Du compte n°:</b>
+										{{ ligne.facture.commande.idUtilisateura}}
+									</div>
+									<!-- /.col -->
+								</div>
+								<!-- /.row -->
+
+								<!-- Table row -->
+								<div class="row">
+									<div class="col-12 table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>Qte</th>
+													<th>Produit</th>
+													<th>Type </th>
+													<th>Description type</th>
+													<th>Etat</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1</td>
+													<td>n° {{ ligne.facture.commande.idProduit}} </td>
+													<td>{{ ligne.facture.commande.role}}</td>
+													<td>Dans type d'échange le client devra payer uniquement la livraison et commission </td>
+													<td>{{ligne.facture.statut}}</td>
+												</tr>
+											
+											</tbody>
+										</table>
+									</div>
+									<!-- /.col -->
+								</div>
+								<!-- /.row -->
+
+								<div
+									class="row">
+									<!-- accepted payments column -->
+									<div class="col-6">
+										<p class="lead">Signature:</p>
+										
+
+										<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+												{% set var = "http://127.0.0.1:8000//Mafacture/" ~ ligne.facture.commande.idCommande  %}
+									<img src="{{ qr_code_url(var)}}" style="width: 150px; height: 150px" alt ="QR Code"/>
+									
+										</p>
+									</div>
+									<!-- /.col -->
+									<div class="col-6">
+										<p class="lead">Ligne facturer à {{ ligne.facture.dateFacturation|date('Y-m-d') }}</p>
+
+										<div class="table-responsive">
+											<table class="table">
+												<tr>
+													<th style="width:50%">prix intial:</th>
+													<td>{{ligne.prixInitial}}DT</td>
+												</tr>
+												<tr>
+													<th>Prix vente ({{ligne.facture.commission}}%)</th>
+													<td>{{ligne.prixVente}}DT</td>
+												</tr>
+												<tr>
+													<th>livraison:</th>
+													<td>{{ligne.prixLivraison}}DT</td>
+												</tr>
+												<tr>
+													<th>Total:</th>
+													<td>{{ligne.prixTotal}}DT</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<!-- /.col -->
+								</div>
+								<!-- /.row -->
+
+								<!-- this row will not appear when printing -->
+
+								<div class="row no-print">
+									<div class="col-12">
+										
+									</div>
+								</div>
+							</div>
+							<!-- /.invoice -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				{% else %}
+				 <h4 style="color:red;">Votre facture sera affichée </br> dès qu'elle sera payée ! </h4>
+				{% endif %}
+
+				
+				
+				
+				<!-- /.container-fluid --></section><!-- /.content --></div><!-- /.content-wrapper --><!-- Control Sidebar --><asideclass="control-sidebarcontrol-sidebar-dark"><!-- Control sidebar content goes here --></aside><!-- /.control-sidebar --></div>
+	<!-- ./wrapper --
+						</div>
+					</div>
+				</div>
+			</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		</div>
+	
+	
+		<div
+			class="wrapper">
+	
+	
+			<!-- Main content -->
+	<div
+		class="invoice p-3 mb-3">
+		<!-- title row -->
+		<div class="row">
+			
+			<!-- /.col -->
+		</div>
+		<!-- info row -->
+	
+		<!-- /.row -->
+
+		<!-- Table row -->
+		
+			<!-- /.col -->
+	
+		<!-- /.row -->
+
+		<div
+			class="row">
+			<!-- accepted payments column -->
+		
+			<!-- /.col -->
+			
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+
+		<!-- this row will not appear when printing -->
+
+	
+	</div>
+	<!-- /.invoice -->
+</div>
+<!-- /.col --></div><!-- /.row --></div><!-- /.container-fluid --></section><!-- /.content --></div><!-- /.content-wrapper --><!-- Control Sidebar --><asideclass="control-sidebarcontrol-sidebar-dark"><!-- Control sidebar content goes here --></aside><!-- /.control-sidebar --></div><!-- ./wrapper -->
+
+
+
+<script>
+  var printLink = document.querySelector('.btn-print');
+
+  printLink.addEventListener('click', function(event) {
+    event.preventDefault();
+    printDiv();
+  });
+
+  function printDiv() {
+    var divToPrint = document.querySelector('#myDiv');
+    var newWin = window.open('', 'Print-Window');
+    newWin.document.open();
+    newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+    newWin.document.close();
+    setTimeout(function() {
+      newWin.close();
+    }, 10);
+  }
+
+
+
+
+
+
+</script>
+{% else %}
+	  <strong>  <p style="color :red;">Ligne non ajoutée de cette facture</p> </strong>
+{% endif %}
+
+{% endblock %}
+

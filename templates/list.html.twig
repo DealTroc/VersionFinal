@@ -1,0 +1,45 @@
+{% extends "baseFront.html.twig" %}
+{% block product %}
+<div class="row product__filter">
+               {% for item in produits %} 
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                    <div class="product__item sale">
+                        <div class="product__item__pic set-bg" data-setbg="/uploads/{{item.image}}">
+                            <span class="label">Sale</span>
+                            <ul class="product__hover">
+                               <li><a href="{{ path('app_panier_new', {'id': item.idproduit}) }}"><img src="{{asset('img/icon/heart.png')}}" alt=""></a></li>
+
+                                <li><a href="#"><img src="{{asset('img/icon/compare.png')}}" alt=""> <span>Compare</span></a></li>
+                                <li><a href="#"><img src="{{asset('img/icon/search.png')}}" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6>{{item.titre}}</h6>
+                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <h5>${{item.prix}}</h5>
+                            <div class="product__color__select">
+                                <label for="pc-7">
+                                    <input type="radio" id="pc-7">
+                                </label>
+                                <label class="active black" for="pc-8">
+                                    <input type="radio" id="pc-8">
+                                </label>
+                                <label class="grey" for="pc-9">
+                                    <input type="radio" id="pc-9">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% endblock %}
+                
+   

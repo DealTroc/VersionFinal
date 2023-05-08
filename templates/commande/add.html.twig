@@ -1,0 +1,47 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Hello CommandeController!{% endblock %}
+
+{% block hero %}
+
+ {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+
+  <main class="dash-content">
+                <div class="container-fluid">
+                    <h3 class="dash-title">Commander un produit</h3>
+
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card spur-card">
+                                <div class="card-header">
+                                    {# <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                    </div> #}
+                                    <div class="spur-card-title"> Ajouter une commande</div>
+                                </div>
+                                <div class="card">
+                                 
+           
+                <div class="card-body">
+                
+                    {{ form(form) }}
+
+                </div>
+            </div>
+            </div>
+                        </div>
+
+                        </div>
+                            </div>
+                           
+                                
+                                      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{form_end(form)}}
+            </main>
+
+            {% endblock %}

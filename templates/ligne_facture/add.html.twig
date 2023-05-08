@@ -1,0 +1,135 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Hello LigneFactureController!{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <style>
+    .ligne-table:hover {
+      font-weight: bold;
+    }
+   
+  </style>
+{% endblock %}
+
+{% block body %}
+  <main class="dash-content">
+                <div class="container-fluid">
+                    <h1 class="dash-title">Nouvelle ligne de facture </h1>
+
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                    </div>
+                                    <div class="spur-card-title"> Ajouter une ligne de la facture</div>
+                                </div>
+                                <div class="card">
+           
+                <div class="card-body">
+              {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+                    {{ form(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-file"></i>
+                                    </div>
+                                    <div class="spur-card-title"> Details de la facture à calculer</div>
+                                </div>
+                                <div class="card-body ">
+                                 
+
+
+
+
+ <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+
+
+
+
+
+                <thead>
+                    <tr class="ligne-table">
+                    
+                        <th style="white-space: nowrap;">Facture </th>
+                        <th style="white-space: nowrap;">Commission</th>
+                        <th style="white-space: nowrap;">Prix initial </th>
+                     
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               
+                 
+                    <tr class="ligne-table">
+                
+                        
+                       
+                        <td>facture n°{{facture.idFacture }}</td>
+                        <td style="color:red;">{{facture.commission}}%</td>
+                        <td style="color:red;">{{ prixInitial}}DT</td>
+                      
+                        
+                    
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+ <table  style="margin-left: 10px;" class="table card-body spur-card-body-chart" >
+
+
+
+
+
+                <thead>
+                    <tr class="ligne-table">
+                    
+                        <th style="white-space: nowrap;">Date Facturation </th>
+                        <th style="white-space: nowrap;">Statut</th>
+                        
+                        
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               
+                 
+                    <tr class="ligne-table">
+
+                        
+                        <td  style="width: 200px;">{{ facture.dateFacturation|date('Y-m-d') }}</td>
+                      
+                      <td>{{facture.statut}}</td>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+
+
+
+                                </div>
+                            </div>
+                           
+                                
+                                      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            {% endblock %}
+   
